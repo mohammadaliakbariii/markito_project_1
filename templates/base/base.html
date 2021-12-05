@@ -21,7 +21,7 @@
                 <button type="button" class="btn btn-light">logout</button>
             </a>
         {% else %}
-            <button type="button" class="btn btn-light">register</button>
+            <a href="{% url 'accounts:register' %}"><button type="button" class="btn btn-light">register</button></a>
             <button type="button" class="btn btn-light">login</button>
 
         {% endif %}
