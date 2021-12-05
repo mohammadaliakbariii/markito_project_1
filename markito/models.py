@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import Customer
+from accounts.models import CustomUser
 
 
 # Create your models here.
@@ -13,7 +13,7 @@ class Categories(models.Model):
 
 
 class Products(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/')
     name = models.CharField(max_length=50)

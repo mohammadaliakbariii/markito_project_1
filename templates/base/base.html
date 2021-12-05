@@ -1,10 +1,10 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<div lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}book shop{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" >
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -12,7 +12,14 @@
 <!------ Include the above in your HEAD tag ---------->
 </head>
 <body>
+<div class="container-fluid">
 <div class="center"><img src="{% static 'markito/img/download.png' %}" alt="markito" style="margin-left: 700px"></div>
+{% if user.is_authenticated %}
+    <a href="{% url "accounts:log_out" %}"><button type="button" class="btn btn-light">logout</button></a>
+    {% else %}
+    <button type="button" class="btn btn-light">register</button>
+    <button type="button" class="btn btn-light">login</button>
+{% endif %}
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark" >
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,4 +63,6 @@
 <div>
     {% block content %}{% endblock %}
 </div>
+</div>
+
 </body>
