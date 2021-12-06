@@ -3,7 +3,10 @@
 {% block content %}
 <div class="row">
 {% if message %}
-    <i>{{ message }}</i>
+    <div class="alert alert-info">
+    <strong>{{ message }}</strong>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
 {% endif %}
 </div>
 {% endblock %}
