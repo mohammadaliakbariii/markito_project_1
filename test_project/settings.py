@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "bootstrap4",
     'markito',
     'accounts',
-    "verify_email.apps.VerifyEmailConfig",
 ]
 
 MIDDLEWARE = [
@@ -134,3 +133,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'aliakbariiimohammad@gmail.com'
+DEFAULT_FROM_EMAIL = 'aliakbariiimohammad@gmail'
+SERVER_EMAIL = 'aliakbariiimohammad@gmail'
+EMAIL_HOST_PASSWORD = 'aglmoizwuqsaqrvz'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
