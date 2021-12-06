@@ -1,132 +1,135 @@
 {% load static %}
 
 <!DOCTYPE html>
-<div lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}{% endblock %}</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    </head>
-    <body>
-    <div class="container-fluid">
-        <div class="center"><img src="{% static 'markito/img/download.png' %}" alt="markito" style="margin-left: 700px">
-        </div>
-        {% if user.is_authenticated %}
-            <a href="{% url "accounts:log_out" %}">
-                <button type="button" class="btn btn-light">logout</button>
-            </a>
-        {% else %}
-            <a href="{% url 'accounts:register' %}">
-                <button type="button" class="btn btn-light">register</button>
-            </a>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#myModal">
-                login
-            </button>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="center"><img src="{% static 'markito/img/download.png' %}" alt="markito" style="margin-left: 700px">
+    </div>
+    {% if user.is_authenticated %}
+        <a href="{% url "accounts:log_out" %}">
+            <button type="button" class="btn btn-light">logout</button>
+        </a>
+    {% else %}
+        <a href="{% url 'accounts:register' %}">
+            <button type="button" class="btn btn-light">register</button>
+        </a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#myModal">
+            login
+        </button>
 
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">sign in</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">sign in</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
 
-                        <!-- Modal body -->
-                        <div class="modal-body text-center">
-                            <form method="post" id="login_form" action="{% url 'accounts:login' %}">
-                                {% csrf_token %}
-                                <div class="input-group form-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <input type="email" class="form-control" placeholder="email" name="email" required>
-
+                    <!-- Modal body -->
+                    <div class="modal-body text-center">
+                        <form method="post" id="login_form" action="{% url 'accounts:login' %}">
+                            {% csrf_token %}
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <div class="input-group form-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                    </div>
-                                    <input type="password" class="form-control" placeholder="password" name="password" required>
+                                <input type="email" class="form-control" placeholder="email" name="email" required>
+
+                            </div>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <div class="row align-items-center remember">
-                                    <input type="checkbox">Remember Me
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Login" class="btn float-right login_btn">
-                                </div>
-                            </form>
-                        </div>
+                                <input type="password" class="form-control" placeholder="password" name="password"
+                                       required>
+                            </div>
+                            <div class="row align-items-center remember">
+                                <input type="checkbox">Remember Me
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Login" class="btn float-right login_btn btn-dark">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
-
-        {% endif %}
-        <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'markito:home' %}">
-                            <i class="fa fa-home"></i>
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">
-                            products
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            dashboard
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">settings</a>
-                            <a class="dropdown-item" href="#"></a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                </ul>
-
-                <!--<form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>  -->
-            </div>
-        </nav>
-        <div>
-            {% block content %}{% endblock %}
         </div>
-    </div>
 
-    </body>
+
+    {% endif %}
+    <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'markito:home' %}">
+                        <i class="fa fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">
+                        products
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        dashboard
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">settings</a>
+                        <a class="dropdown-item" href="#"></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+
+            <!--<form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>  -->
+        </div>
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+</body>
+
+
 <script>
-$.ajax({
-    type:"POST",
-    url: '{% url 'accounts:login' %}',
-    data: $('#login_form').serialize(),
-    success: function(response){
-        // do something with response
-        response['email'];
-        response['password']
-     }
-});
+    $.ajax({
+        type: "POST",
+        url: '{% url 'accounts:login' %}',
+        data: $('#login_form').serialize(),
+        success: function (response) {
+            // do something with response
+            response['email'];
+            response['password']
+        }
+    });
 </script>
 </html>

@@ -42,11 +42,11 @@ def login(request):
         user = authenticate(username=email, password=password)
         if user is not None:
             auth_login(request, user)
-            # return render(request, 'markito/home.html')
+
         else:
             message = 'your email or password is wrong!!!'
 
-    return redirect('/')
+    return redirect('markito:home')
 
 
 def log_out(request):
