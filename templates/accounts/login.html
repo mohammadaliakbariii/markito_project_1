@@ -39,7 +39,7 @@
                 {#                </div>#}
             </div>
             <div class="card-body">
-                <form method="post">
+                <form method="post" id="login_form" action="{% url 'accounts:login' %}">
                     {% csrf_token %}
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
@@ -73,5 +73,17 @@
         </div>
     </div>
 </div>
+<script>
+$.ajax({
+    type:"POST",
+    url: '{% url 'accounts:login' %}',
+    data: $('#login_form').serialize(),
+    success: function(response){
+        // do something with response
+        response['email'];
+        response['password']
+     }
+});
+</script>
 </body>
 </html>
