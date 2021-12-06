@@ -16,9 +16,10 @@ def register(request):
         full_name = request.POST['full_name']
         password = request.POST['pass1']
         password2 = request.POST['pass2']
-        if CustomUser.objects.filter(email=email):
+        if CustomUser.objects.filter(email=email) or CustomUser.objects.filter(phone_number=phone_number):
             message = 'this username or email is already exit please choose another please'
             return render(request, 'accounts/register.html', context={'message': message})
+
         if password != password2:
             message = 'passwords are not match!!!'
             return render(request, 'accounts/register.html', context={'message': message})
@@ -41,14 +42,11 @@ def login(request):
         user = authenticate(username=email, password=password)
         if user is not None:
             auth_login(request, user)
-            return HttpResponse("logged success")
             # return render(request, 'markito/home.html')
         else:
             message = 'your email or password is wrong!!!'
 
-    return render(request, 'accounts/login.html', context={
-        'message': message,
-    })
+    return redirect('/')
 
 
 def log_out(request):
