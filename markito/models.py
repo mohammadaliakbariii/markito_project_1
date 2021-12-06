@@ -11,6 +11,16 @@ class Channel(models.Model):
     def __str__(self):
         return self.name
 
+class Store(models.Model):
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    channel = models.ForeignKey(Channel,on_delete=models.CASCADE)
+    name = models.CharField(max_length=50,unique=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.name
+
+
 
 class Categories(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -21,6 +31,7 @@ class Categories(models.Model):
 
 class Products(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store,on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/')
     name = models.CharField(max_length=50)
