@@ -48,15 +48,13 @@ def register(request):
             mail_subject, message, to=[to_email]
         )
         email.send()
-        return HttpResponse('Please confirm your email address to complete the registration')
-    # return render(request,'markito/home.html')
+        message = 'Please confirm your email address to complete the registration'
+
+        return render(request,'markito/home.html',context={
+            'message':message
+        })
     else:
         return render(request, 'accounts/register.html', context={"message": message})
-
-
-
-
-
 
 
 
@@ -81,6 +79,7 @@ def log_out(request):
 
 
 def activate(request, uidb64, token):
+    message = ''
     User = get_user_model()
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -90,6 +89,7 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
+
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')

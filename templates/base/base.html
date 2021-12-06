@@ -17,6 +17,7 @@
     <div class="center"><img src="{% static 'markito/img/download.png' %}" alt="markito" style="margin-left: 700px">
     </div>
     {% if user.is_authenticated %}
+        <h4>welcome {{ user.full_name }}</h4>
         <a href="{% url "accounts:log_out" %}">
             <button type="button" class="btn btn-light">logout</button>
         </a>
