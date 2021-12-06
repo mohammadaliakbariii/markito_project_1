@@ -4,4 +4,3 @@ from .models import Categories, Products
 
 # Register your models here.
 
-# @admin.register()
