@@ -8,6 +8,8 @@ from accounts.models import CustomUser
 class Channel(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
+    class Meta:
+        verbose_name_plural = 'channels'
     def __str__(self):
         return self.name
 
@@ -24,13 +26,14 @@ class Store(models.Model):
 
 class Categories(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    class Meta:
+        verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.name
 
 
 class Products(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     store = models.ForeignKey(Store,on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/')
@@ -39,8 +42,12 @@ class Products(models.Model):
     buy_price = models.DecimalField(max_digits=50, decimal_places=2)
     sell_price = models.DecimalField(max_digits=50, decimal_places=2)
     side_costs = models.DecimalField(max_digits=50, decimal_places=2)
-    costs = models.DecimalField(max_digits=50, decimal_places=2)
     is_active = models.BooleanField(default=True)
+
+    def profit(self):
+        pass
+    class Meta:
+        verbose_name_plural = 'products'
 
     def __str__(self):
         return self.name
