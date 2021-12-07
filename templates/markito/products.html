@@ -13,13 +13,14 @@
             </tr>
             </thead>
             <tbody>
-            {% for product in products %}
+            {% for product in list_products %}
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ product.store }}</td>
-                    <td>{{ product.image.url }}</td>
+                    <td><img src="{{ product.image.url }}" alt="{{ product.name }}" style="object-fit: cover;height: 50px;width: 50px"></td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.count }}</td>
+
                 </tr>
             {% endfor %}
 
@@ -28,5 +29,24 @@
 
 
     </div>
+{% endblock %}
+{% block footer %}
+    <hr>
+    <div class="text-center">
+
+<nav>
+<ul class="pagination">
+     {% if list_products.has_previous %}
+        <li class="page-item"> <a class="page-link" href="?page=1">&laquo First</a></li>
+         <li class="page-item"> <a  class="page-link" href="?page={{ list_products.previous_page_number }}">previous</a></li>
+     {% endif %}
+    <li class="page-item"> page {{ list_products.number }} of {{ list_products.paginator.num_pages }}</li>
+      {% if list_products.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ list_products.next_page_number }}">next</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ list_products.next_page_number.num_pages}}">&raquo last</a></li>
+     {% endif %}
+</ul>
+</nav>
+</div>
 {% endblock %}
 {% block scripts %}{% endblock %}
