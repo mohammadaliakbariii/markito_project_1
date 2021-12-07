@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+<table id="dt-material-checkbox" class="table table-striped" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="th-sm">store
+      </th>
+      <th class="th-sm">name
+      </th>
+      <th class="th-sm">count
+      </th>
+      <th class="th-sm">image
+      </th>
+      <th class="th-sm">active or not
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for product in products %}
+    <tr>
+      <td></td>
+      <td>{{ product.store}}</td>
+      <td>{{ product.name }}</td>
+        <td>{{ product.count }}</td>
+      <td><img src="{{ product.image.url }}" alt="" style="width: 100px;height: 100px"></td>
+      <td>{{ product.is_active }}</td>
+    </tr>
+  {% endfor %}
+
+
+
+
+
+
+  </tbody>
+
+</table>
+
+
+
+<script src="{% static 'markito/js/products.js' %}"></script>
+</body>
+</html>
