@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "bootstrap4",
     'markito',
     'accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
 ]
 
 ROOT_URLCONF = 'test_project.urls'
@@ -149,3 +152,6 @@ SERVER_EMAIL = 'aliakbariiimohammad@gmail'
 EMAIL_HOST_PASSWORD = 'aglmoizwuqsaqrvz'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+
