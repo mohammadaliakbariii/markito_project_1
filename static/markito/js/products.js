@@ -4,7 +4,7 @@ $.ajax({
     success: function (response) {
         console.log(response)
         var data = response
-        console.log(data)
+
 
         $.ajax({
             type: 'POST',
@@ -13,7 +13,7 @@ $.ajax({
 
             success: function (response) {
 
-                console.log("done")
+                console.log(data)
             }
         })
 
