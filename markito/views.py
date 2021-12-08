@@ -21,10 +21,10 @@ def json_info(request):
 
 
 
-# @login_required
+@login_required
 @csrf_exempt
 def products(request):
-    pass
+
     products = Products.objects.filter(store__user=request.user)
 
     return render(request, 'markito/products_1.html',context={
