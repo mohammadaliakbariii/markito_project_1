@@ -2,18 +2,18 @@ $.ajax({
     type: 'GET',
     url: "/info/",
     success: function (response) {
-        console.log(response)
+        // console.log(response)
         var data = response
 
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '/products/',
             data: data,
 
             success: function (response) {
-
                 console.log(data)
+
             }
         })
 
