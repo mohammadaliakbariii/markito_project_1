@@ -2,22 +2,28 @@ $.ajax({
     type: 'GET',
     url: "/info/",
     success: function (response) {
-        // console.log(response)
-        var data = response
+        datas = response
+        info=[]
+        for ( data of datas){
+            // console.log(dat["fields"])
+            info.push(data["fields"])
+        }
+        console.log(info)
+        for (kala of info){
+            $('<tr className="odd"> <td valign="top" colSpan="6" className="dataTables_empty"></td></tr>').appendTo("<tbody></tbody>").html(kala.name)
+            console.log(kala.name)
 
-
-        $.ajax({
-            type: 'GET',
-            url: '/products/',
-            data: data,
-
-            success: function (response) {
-                console.log(data)
-
-            }
-        })
-
-
+                $.ajax(
+                    {
+                        type: "POST",
+                        url:"/products/",
+                        data:info,
+                        success(response){
+                            response["info"]
+                        }
+                    }
+                )
+        }
     }
 })
 

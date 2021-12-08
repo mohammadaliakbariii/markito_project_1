@@ -11,6 +11,8 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.contrib.auth import get_user_model
+
+
 # Create your views here.
 
 def register(request):
@@ -50,12 +52,11 @@ def register(request):
         email.send()
         message = 'Please confirm your email address to complete the registration'
 
-        return render(request,'markito/home.html',context={
-            'message':message
+        return render(request, 'markito/home.html', context={
+            'message': message
         })
     else:
         return render(request, 'accounts/register.html', context={"message": message})
-
 
 
 def login(request):
@@ -69,7 +70,6 @@ def login(request):
 
         else:
             message = 'your email or password is wrong!!!'
-
     return redirect('markito:home')
 
 
