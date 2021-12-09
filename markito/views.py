@@ -25,9 +25,7 @@ def json_info(request):
 @csrf_exempt
 def products(request):
 
-    return render(request, 'markito/products_1.html'
-    )
-
+        return render(request, 'markito/products.html')
 
 def dashboard(request):
     return render(request, 'markito/dashboard.html')
