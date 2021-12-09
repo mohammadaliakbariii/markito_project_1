@@ -25,22 +25,9 @@ def json_info(request):
 @csrf_exempt
 def products(request):
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    products = Products.objects.filter(store__user=request.user)
-=======
-    if request.method=='POST':
-        P
+    return render(request, 'markito/products_1.html'
+    )
 
->>>>>>> 4bb4d318f18165a47ca236ffa7a8f6ad52449592
-
-    return render(request, 'markito/products_1.html',context={
-        "products":products,
-    })
->>>>>>> parent of bc744c4 (send from ajax to view)
-
-        return render(request,'markito/products_1.html')
 
 def dashboard(request):
     return render(request, 'markito/dashboard.html')
