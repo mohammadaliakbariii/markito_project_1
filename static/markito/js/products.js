@@ -17,23 +17,24 @@
 
 $(document).ready(function () {
             $('#mytable').DataTable({
-                "serverSide": false,
+                // "serverSide": false,
                 // "serverSide": true,
-                "processing": true,
+                "processing": false,
                 "aLengthMenu": [[3, 5, 10, 25, -1], [3, 5, 10, 25, "All"]],
                 "iDisplayLength": 3,
                 "responsive" : true,
                 "ajax": {
                     url: "/info/",
                     type: 'GET',
-                    dataSrc: ""
+                    dataSrc: "",
+
                 },
                 'columnDefs': [],
                 "columns": [
                     {
                         "data": "fields.image",
                         "render": function(data, type, row, meta) {
-                 return '<img src="/media/'+data+'" style="height:45px;"/>';}
+                 return '<img src="/media/'+data+'" style="height:45px;width: 45px"/>';}
 
                     },
                     {"data": "fields.name"},
