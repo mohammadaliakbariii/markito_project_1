@@ -17,9 +17,8 @@
 
 $(document).ready(function () {
             $('#mytable').DataTable({
-                // "serverSide": false,
-                "serverSide": false,
-                "processing": false,
+                "serverSide": true,
+                "processing": true,
                 "aLengthMenu": [[3, 5, 10, 25, -1], [3, 5, 10, 25, "All"]],
                 "iDisplayLength": 3,
                 "responsive" : true,
