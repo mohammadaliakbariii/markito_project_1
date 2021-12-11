@@ -1,5 +1,4 @@
-from django.contrib.auth import authenticate
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import CustomUser
 from django.contrib.auth import authenticate, login as auth_login, logout

@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 from django_serverside_datatable.views import ServerSideDatatableView
 from django.http import JsonResponse
 from django_serverside_datatable import datatable
+
+
 # Create your views here.
 
 
@@ -12,11 +14,8 @@ class Home(TemplateView):
     template_name = "markito/home.html"
 
 
-
-class ProductList(LoginRequiredMixin,TemplateView):
+class ProductList(LoginRequiredMixin, TemplateView):
     template_name = 'markito/products.html'
-
-
 
 
 class ProductListView(ServerSideDatatableView):
@@ -38,9 +37,5 @@ class ProductListView(ServerSideDatatableView):
         return JsonResponse(result, safe=False)
 
 
-
 def dashboard(request):
     return render(request, 'markito/dashboard.html')
-
-
-
