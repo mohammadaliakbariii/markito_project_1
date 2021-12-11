@@ -9,6 +9,8 @@ $(document).ready(function () {
                 {name: "name", data: 1},
                 {name: "created_date", data: 2},
                 {name: "updated", data: 3},
+
             ],
         });
     });
+

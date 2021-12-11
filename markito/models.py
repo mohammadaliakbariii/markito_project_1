@@ -44,10 +44,22 @@ class Products(models.Model):
     side_costs = models.DecimalField(max_digits=50, decimal_places=2)
     is_active = models.BooleanField(default=True)
 
-    def profit(self):
-        pass
     class Meta:
         verbose_name_plural = 'products'
 
     def __str__(self):
         return self.name
+    def profit(self):
+        pass
+
+    @staticmethod
+    def delete(self, using=None, keep_parents=False):
+        files = Products.objects.filter(widget=self)
+        if files:
+            for file in files:
+                file.delete()
+        super(Products, self).delete()
+
+
+
+

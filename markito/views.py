@@ -41,6 +41,8 @@ class Settings(LoginRequiredMixin, TemplateView):
     template_name = 'markito/settings.html'
 
 
+
+
 class SettingsList(ServerSideDatatableView):
 
     def get(self, request, *args, **kwargs):
