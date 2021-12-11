@@ -13,8 +13,6 @@ class Home(TemplateView):
 
 
 
-
-
 class ProductList(LoginRequiredMixin,TemplateView):
     template_name = 'markito/products.html'
 
