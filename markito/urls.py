@@ -1,13 +1,14 @@
 from django.urls import path
 
-from .views import Home,products,ItemListView
+from .views import Home,ProductListView,ProductList
 
 app_name = 'markito'
 urlpatterns = [
     path('', Home.as_view(), name="home"),
-    path('products/',products,name="products"),
-    # path('info/',json_info,name="json_info"),
-    path('data/', ItemListView.as_view()),
+    path('data/', ProductListView.as_view()),
+    path('products/', ProductList.as_view(), name='products_records'),
+
+
 
 
 ]
