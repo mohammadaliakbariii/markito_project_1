@@ -1,14 +1,6 @@
-from django.core.serializers import serialize
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django_serverside_datatable.views import ServerSideDatatableView
-
-from .models import Products, Store
-import json
-from django.http import HttpResponse
-from django.core.paginator import Paginator
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from django.views.generic import ListView
+from .models import Products
 from django.views.generic import TemplateView
 from django_serverside_datatable.views import ServerSideDatatableView
 from django.http import JsonResponse
@@ -23,14 +15,14 @@ class Home(TemplateView):
 
 
 
-class ProductList(TemplateView):
+class ProductList(LoginRequiredMixin,TemplateView):
     template_name = 'markito/products.html'
 
 
 
 
-
 class ProductListView(ServerSideDatatableView):
+
     def get(self, request, *args, **kwargs):
         queryset = Products.objects.filter(store__user=self.request.user)
         columns = ['image',
@@ -46,6 +38,7 @@ class ProductListView(ServerSideDatatableView):
         self.columns = columns
         result = datatable.DataTablesServer(request, self.columns, self.queryset).output_result()
         return JsonResponse(result, safe=False)
+
 
 
 def dashboard(request):
