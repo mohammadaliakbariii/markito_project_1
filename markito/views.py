@@ -37,5 +37,5 @@ class ProductListView(ServerSideDatatableView):
         return JsonResponse(result, safe=False)
 
 
-def dashboard(request):
-    return render(request, 'markito/dashboard.html')
+def settings(request):
+    return render(request, 'markito/settings.html')

@@ -1,7 +1,7 @@
 $(document).ready(function () {
         $('#mytable').DataTable({
             serverSide: true,
-            "aLengthMenu": [[3, 5, 10, 25, -1], [3, 5, 10, 25, "All"]],
+            "aLengthMenu": [[3, 5, 10, 25, 50,100,150], [3, 5, 10, 25, 50,100,150]],
             "iDisplayLength": 3,
             sAjaxSource: "/data/",
             columns: [
@@ -15,7 +15,7 @@ $(document).ready(function () {
                 {name: "category", data: 2},
                 {name: "buy_price", data: 3},
                 {name: "sell_price", data: 4},
-                {name: "stock", data: 5},
+                {name: "count", data: 5},
                 {name: "side_costs", data: 6},
                 {name: "is_active", data: 7},
             ],
