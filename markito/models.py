@@ -7,6 +7,8 @@ from accounts.models import CustomUser
 
 class Channel(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    code = models.CharField(max_length=15,unique=True)
+
 
     class Meta:
         verbose_name_plural = 'channels'
@@ -15,7 +17,7 @@ class Channel(models.Model):
 
 class Store(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    channel = models.ForeignKey(Channel,on_delete=models.CASCADE)
+    channel = models.ManyToManyField(Channel)
     name = models.CharField(max_length=50,unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -52,13 +54,7 @@ class Products(models.Model):
     def profit(self):
         pass
 
-    @staticmethod
-    def delete(self, using=None, keep_parents=False):
-        files = Products.objects.filter(widget=self)
-        if files:
-            for file in files:
-                file.delete()
-        super(Products, self).delete()
+
 
 
 
