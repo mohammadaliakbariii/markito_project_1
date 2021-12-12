@@ -6,6 +6,7 @@ $(document).ready(function () {
             "aLengthMenu": [[3, 5, 10, 25, 50, 100, 150], [3, 5, 10, 25, 50, 100, 150]],
             "iDisplayLength": 3,
             sAjaxSource: "/data/",
+            "bInfo" : false,
             columns: [
                 {
                     name: "image", data: 0,
@@ -58,55 +59,53 @@ $(document).ready(function () {
                 }
 
 
+                $('form').on('submit', function (e) {
+                    e.preventDefault();
+                    let $this = $(this);
+                    console.log($this.serialize())
+                    let type = $('#type').val();
+                    let method = '';
+                    let url = '/update/' + id + '/';
+                    method = "POST";
+                    $.ajax({
+                        url: url,
+                        method: method,
+                        data: $this.serialize(),
+                        success: function (data, textStatus, jqXHR) {
+                            location.reload(),
+                                console.log("done")
+                        },
+                        error: function () {
+                            console.log("not done")
+                            console.log(jqXHR)
 
+                        }
+                    });
+                    //    -----------------------------------------------------------------------------------------------------
 
-
-            $('form').on('submit', function (e) {
-                e.preventDefault();
-                let $this = $(this);
-                console.log($this.serialize())
-                let type = $('#type').val();
-                let method = '';
-                let url = '/update/'+id+'/';
-                method = "POST";
-                $.ajax({
-                    url: url,
-                    method: method,
-                    data: $this.serialize(),
-                    success: function (data, textStatus, jqXHR) {
-                        location.reload(),
-                        console.log("done")
-                },
-                    error: function (){
-                        console.log("not done")
-                        console.log(jqXHR)
-
-                    }
                 });
-            //    -----------------------------------------------------------------------------------------------------
+                $("#delete").click(function (e) {
+                    e.preventDefault();
+                    console.log("hello")
+                    let $this = $(this);
+                    console.log($this.serialize())
+                    let type = $('#type').val();
+                    let method = '';
+                    $.ajax({
+                        url: '/delete/' + id + '/',
+                        method: 'POST',
+                        data: $this.serialize(),
+                        success: function (data, textStatus, jqXHR) {
+                            location.reload();
+                            console.log('done')
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR)
+                        }
+                    })
+                });
 
             });
-               $("#delete").click( function (e) {
-                  e.preventDefault();
-                  console.log("hello")
-                let $this = $(this);
-                console.log($this.serialize())
-                let type = $('#type').val();
-                let method = '';
-                $.ajax({
-                    url: '/delete/'+ id +'/',
-                    method: 'POST',
-                    data: $this.serialize(),
-                    success:function (data, textStatus, jqXHR){
-                        location.reload();
-                    console.log('done')},
-                    error:function (jqXHR, textStatus, errorThrown){
-                        console.log(jqXHR)
-                    }
-                })
-            });
-
-});
         })
 
     },

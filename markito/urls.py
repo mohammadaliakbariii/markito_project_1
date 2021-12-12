@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import Home,ProductListView,ProductList,Settings,SettingsList,update_view,delete_view
+from .views import Home,ProductListView,ProductList,Settings,SettingsList,update_view,delete_view,AddChannel
 
 app_name = 'markito'
 urlpatterns = [
@@ -11,5 +11,5 @@ urlpatterns = [
     path('info/',SettingsList.as_view(),name='info'),
     path("update/<int:id>/",update_view,name='update_view'),
     path('delete/<int:id>/',delete_view,name='delete_view'),
-
+    path('add_channel/',AddChannel.as_view(),name="add_channel")
 ]

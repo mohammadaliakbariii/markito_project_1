@@ -82,3 +82,8 @@ def delete_view(request,id):
         product=Products.objects.filter(id=id)
         product.delete()
         return HttpResponse(product)
+
+
+
+class AddChannel(TemplateView):
+    template_name = 'markito/add_channel.html'
