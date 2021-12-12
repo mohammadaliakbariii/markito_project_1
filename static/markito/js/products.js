@@ -36,6 +36,7 @@ $(document).ready(function () {
                 var data = table.row($(this).parents('tr')).data();
                 console.log(data)
                 console.log(data[8])
+                var id = data[8]
                 let class_name = $(this).attr('class');
                 if (class_name == 'btn btn-info') {
                     // EDIT button
@@ -58,8 +59,8 @@ $(document).ready(function () {
 
 
 
-            });
-             let id = 1;
+
+
             $('form').on('submit', function (e) {
                 e.preventDefault();
                 let $this = $(this);
@@ -84,20 +85,28 @@ $(document).ready(function () {
                 });
             //    -----------------------------------------------------------------------------------------------------
 
-            })
-               $("#confirm").on('click', '#delete', function (e) {
+            });
+               $("#delete").click( function (e) {
+                  e.preventDefault();
+                  console.log("hello")
+                let $this = $(this);
+                console.log($this.serialize())
+                let type = $('#type').val();
+                let method = '';
                 $.ajax({
-                    url: '/data/',
-                    method: 'DELETE',
-                }).success(function (data, textStatus, jqXHR) {
-                    location.reload();
-                    console.log('done')
-                }).error(function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR)
+                    url: '/delete/'+ id +'/',
+                    method: 'POST',
+                    data: $this.serialize(),
+                    success:function (data, textStatus, jqXHR){
+                        location.reload();
+                    console.log('done')},
+                    error:function (jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR)
+                    }
                 })
             });
 
-
+});
         })
 
     },

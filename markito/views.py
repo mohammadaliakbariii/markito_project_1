@@ -38,6 +38,7 @@ class ProductListView(ServerSideDatatableView):
         return JsonResponse(result, safe=False)
 
 
+
 class Settings(LoginRequiredMixin, TemplateView):
     template_name = 'markito/settings.html'
 
@@ -45,7 +46,6 @@ class Settings(LoginRequiredMixin, TemplateView):
 
 
 class SettingsList(ServerSideDatatableView):
-
     def get(self, request, *args, **kwargs):
         queryset = Store.objects.filter(user=self.request.user)
         columns = [
@@ -73,3 +73,12 @@ def update_view(request,id):
         product=product.update(name=new_name,buy_price=new_buy_price,side_costs=new_side_costs,sell_price=new_sell_price,count=new_count)
         return HttpResponse(product)
 
+
+
+
+@csrf_exempt
+def delete_view(request,id):
+    if request.method=='POST':
+        product=Products.objects.filter(id=id)
+        product.delete()
+        return HttpResponse(product)
