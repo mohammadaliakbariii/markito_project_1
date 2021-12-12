@@ -69,8 +69,9 @@ def update_view(request,id):
         new_sell_price=request.POST.get('sell_price')
         new_side_costs=request.POST.get('side_costs')
         new_count=request.POST.get('count')
+        new_status=request.POST.get('is_active')
         product=Products.objects.filter(id=id)
-        product=product.update(name=new_name,buy_price=new_buy_price,side_costs=new_side_costs,sell_price=new_sell_price,count=new_count)
+        product=product.update(name=new_name,buy_price=new_buy_price,side_costs=new_side_costs,sell_price=new_sell_price,count=new_count,is_active=new_status)
         return HttpResponse(product)
 
 
