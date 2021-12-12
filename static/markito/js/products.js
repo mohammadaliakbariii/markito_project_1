@@ -1,17 +1,16 @@
-
 $(document).ready(function () {
 
 
-        $('#mytable').DataTable({
+        let table = $('#mytable').DataTable({
             serverSide: true,
-            "aLengthMenu": [[3, 5, 10, 25, 50,100,150], [3, 5, 10, 25, 50,100,150]],
+            "aLengthMenu": [[3, 5, 10, 25, 50, 100, 150], [3, 5, 10, 25, 50, 100, 150]],
             "iDisplayLength": 3,
             sAjaxSource: "/data/",
             columns: [
                 {
                     name: "image", data: 0,
                     "render": function (data, type, row, meta) {
-                        return '<img src="/media/'+data + '" style="height:45px; width:45px"/>';
+                        return '<img src="/media/' + data + '" style="height:45px; width:45px"/>';
                     }
                 },
                 {name: "name", data: 1},
@@ -21,97 +20,87 @@ $(document).ready(function () {
                 {name: "count", data: 5},
                 {name: "side_costs", data: 6},
                 {name: "is_active", data: 7},
-                          {
-            "data": null,
-            "defaultContent": '<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editmodal">Edit</button>' + '&nbsp;&nbsp' +
-            '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletemodal">Delete</button>'
-        }
+                {name: "id", data: 8},
+                {
+                    "data": null,
+                    "defaultContent": '<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editmodal">Edit</button>' + '&nbsp;&nbsp' +
+                        '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletemodal">Delete</button>'
+                }
             ],
 
-            select:true,
+            select: true,
 
         });
-    });
+        $(document).ready(function () {
+            $('#mytable tbody').on('click', 'button', function () {
+                var data = table.row($(this).parents('tr')).data();
+                console.log(data)
+                console.log(data[8])
+                let class_name = $(this).attr('class');
+                if (class_name == 'btn btn-info') {
+                    // EDIT button
+                    $('#name').val(data['name']);
+                    $('#category').val(data['category']);
+                    $('#buy_price').val(data['buy_price']);
+                    $('#sell_price').val(data['sell_price']);
+                    $('#side_costs').val(data['side_costs']);
+                    $('#count').val(data['count']);
+                    $('#type').val('edit');
+                    $('#modal_title').text('EDIT');
+                    $("#myModal").modal();
+                    //    --------------------------------------------------------------------------------------------------
+                } else {
+                    // DELETE button
+                    $('#modal_title').text('DELETE');
+                    $("#confirm").modal();
+                    //    --------------------------------------------------------------------------------------------------
+                }
 
 
 
+            });
+             let id = 1;
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+                let $this = $(this);
+                console.log($this.serialize())
+                let type = $('#type').val();
+                let method = '';
+                let url = '/update/'+id+'/';
+                method = "POST";
+                $.ajax({
+                    url: url,
+                    method: method,
+                    data: $this.serialize(),
+                    success: function (data, textStatus, jqXHR) {
+                        location.reload(),
+                        console.log("done")
+                },
+                    error: function (){
+                        console.log("not done")
+                        console.log(jqXHR)
+
+                    }
+                });
+            //    -----------------------------------------------------------------------------------------------------
+
+            })
+               $("#confirm").on('click', '#delete', function (e) {
+                $.ajax({
+                    url: '/data/',
+                    method: 'DELETE',
+                }).success(function (data, textStatus, jqXHR) {
+                    location.reload();
+                    console.log('done')
+                }).error(function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR)
+                })
+            });
 
 
+        })
 
-
-
-
-
-//
-// $(document).ready(function () {
-//         editor = new $.fn.dataTable.Editor( {
-//         table: "#mytable",
-//         fields: [
-//             {
-//                 label: "image",
-//                 name: "image"
-//             },
-//             {
-//                 label: "name",
-//                 name: "name"
-//             }, {
-//                 label: "category",
-//                 name: "category"
-//             }, {
-//                 label: "buy price:",
-//                 name: "buy_price"
-//             }, {
-//                 label: "sell price",
-//                 name: "sell_price"
-//             }, {
-//                 label: "count",
-//                 name: "count"
-//             },
-//             {
-//                 label: "side_costs:",
-//                 name: "side_costs"
-//             },
-//             {
-//                 label: "status",
-//                 name: "is_active"
-//             }
-//         ]
-//     } );
-//
-//         $('#mytable').DataTable({
-//             serverSide: true,
-//             "aLengthMenu": [[3, 5, 10, 25, 50,100,150], [3, 5, 10, 25, 50,100,150]],
-//             "iDisplayLength": 3,
-//             sAjaxSource: "/data/",
-//             columns: [
-//                 {
-//                     name: "image", data: 0,
-//                     "render": function (data, type, row, meta) {
-//                         return '<img src="/media/'+data + '" style="height:45px; width:45px"/>';
-//                     }
-//                 },
-//                 {name: "name", data: 1},
-//                 {name: "category", data: 2},
-//                 {name: "buy_price", data: 3},
-//                 {name: "sell_price", data: 4},
-//                 {name: "count", data: 5},
-//                 {name: "side_costs", data: 6},
-//                 {name: "is_active", data: 7},
-//                           {
-//             "data": null,
-//             "defaultContent": '<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editmodal">Edit</button>' + '&nbsp;&nbsp' +
-//             '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletemodal">Delete</button>'
-//         }
-//             ],
-//
-//             select:true,
-//             buttons: [
-//             { extend: "create", editor: editor },
-//             { extend: "edit",   editor: editor },
-//             { extend: "remove", editor: editor }
-//         ]
-//
-//         });
-//     });
+    },
+);
 
 
