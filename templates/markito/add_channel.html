@@ -10,17 +10,20 @@
 <body>
 {% block content %}
     <div class="row">
+        {% if message %}
+            <div class="alert alert-info">
+                <strong>{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
     <card class="col-4 border"style="margin-top: 10px;margin-left: 10px" >
         <div class="card-header">
             <img src="{% static 'markito/img/digikala.png' %}" alt="digikala" class="center" style="height: 255px;width: 255px">
         </div>
         <div class="card-body">
-    <form role="form" id="channel_form">
-                            <div class="form-group">
-                                <label for="url"><span class="glyphicon glyphicon-pencil"></span>enter your url:</label>
-                                <input type="text" class="form-control" id="url" name="url" placeholder="Enter url"
-                                       required="true">
-                            </div>
+    <form role="form" id="channel_form" class="frm">
                             <div class="form-group">
                                 <label for="token"><span class="glyphicon glyphicon-pencil"></span>enter token:</label>
                                 <input type="text" class="form-control" id="token" name="token" placeholder="enter token"

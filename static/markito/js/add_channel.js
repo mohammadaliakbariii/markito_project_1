@@ -1,7 +1,6 @@
 $(document).ready(function () {
-  $("form").submit(function (event) {
+  $(".frm").submit(function (event) {
     var formData = {
-      url: $("#url").val(),
       token: $("#token").val(),
     };
 
