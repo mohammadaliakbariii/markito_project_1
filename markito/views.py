@@ -106,6 +106,7 @@ def get_data(request):
             record = r.json()
             print(record)
             return HttpResponse(record)
+
         else:
             return render(request,'markito/add_channel.html')
 
