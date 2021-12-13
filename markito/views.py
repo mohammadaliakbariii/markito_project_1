@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from .models import Products, Store
@@ -7,6 +9,7 @@ from django.http import JsonResponse, HttpResponse
 from django_serverside_datatable import datatable
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
+import requests
 # Create your views here.
 
 
@@ -88,3 +91,21 @@ def delete_view(request,id):
 
 class AddChannel(TemplateView):
     template_name = 'markito/add_channel.html'
+
+
+
+@csrf_exempt
+def get_data(request):
+
+        # url = "https://seller.digikala.com/api/v1/variants/"
+        # token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJ0b2tlbl9pZCI6NjIzMSwicGF5bG9hZCI6bnVsbH0.SRWCoiAumPyjtEKV2gKatWZw1IDUbcIqH9tj9oF-uOh_nTAkc6Bz9C7OEE5yp4fz'
+        if request.method=="POST":
+            url=request.POST["url"]
+            token=request.POST['token']
+            r = requests.get(url,headers={'Authorization': token})
+            record = r.json()
+            print(record)
+            return HttpResponse(record)
+        else:
+            return render(request,'markito/add_channel.html')
+
