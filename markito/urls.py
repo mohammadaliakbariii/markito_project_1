@@ -12,5 +12,5 @@ urlpatterns = [
     path("update/<int:id>/",update_view,name='update_view'),
     path('delete/<int:id>/',delete_view,name='delete_view'),
     path('add_channel/',AddChannel.as_view(),name="add_channel"),
-    path('get_data/',get_data,name="get_Data")
+    path('get_data/',get_data,name="get_data")
 ]
