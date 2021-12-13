@@ -96,20 +96,17 @@ class AddChannel(TemplateView):
 
 @csrf_exempt
 def get_data(request):
-        message=''
+
         url = "https://seller.digikala.com/api/v1/variants/"
         # token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJ0b2tlbl9pZCI6NjIzMSwicGF5bG9hZCI6bnVsbH0.SRWCoiAumPyjtEKV2gKatWZw1IDUbcIqH9tj9oF-uOh_nTAkc6Bz9C7OEE5yp4fz'
         if request.method=="POST":
+
+
             token=request.POST['token']
             r = requests.get(url,headers={'Authorization': token})
-            if r.status_code==200:
-
-                record = r.json()
-
-                print(record)
-
-                return HttpResponse(record)
-
+            record = r.json()
+            print(record)
+            return HttpResponse(record)
         else:
             return render(request,'markito/add_channel.html')
 
