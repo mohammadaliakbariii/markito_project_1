@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+from asyncio import Queue
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,8 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django_celery_beat',
-    'django_celery_results',
+
     'phonenumber_field',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'django_celery_results',
     "bootstrap4",
     'rest_framework_datatables_editor',
     'bootstrap_modal_forms',
     'markito',
     'accounts',
-
 ]
 
 MIDDLEWARE = [
@@ -173,3 +173,11 @@ EMAIL_USE_TLS = True
 
 
 
+# CELERY STUFF
+# BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = TIME_ZONE
+CELERY_BROKER_URL = 'amqp://localhost'
