@@ -27,7 +27,7 @@ class ProductList(LoginRequiredMixin, TemplateView):
 class ProductListView(ServerSideDatatableView):
 
     def get(self, request, *args, **kwargs):
-        queryset = Products.objects.filter(store__user=self.request.user)
+        queryset = Products.objects.all()
         columns = ['image',
                    'name',
                    'category__name',

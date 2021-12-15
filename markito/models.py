@@ -1,4 +1,6 @@
 from django.db import models
+
+import accounts
 from accounts.models import CustomUser
 
 
@@ -7,7 +9,7 @@ from accounts.models import CustomUser
 
 class Channel(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    code = models.CharField(max_length=15,unique=True)
+
 
 
     class Meta:
@@ -16,7 +18,7 @@ class Channel(models.Model):
         return self.name
 
 class Store(models.Model):
-    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    creator = models.ForeignKey(accounts.models.CustomUser, on_delete=models.CASCADE, null=True)
     channel = models.ManyToManyField(Channel)
     name = models.CharField(max_length=50,unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -27,7 +29,7 @@ class Store(models.Model):
 
 
 class Categories(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50,)
     class Meta:
         verbose_name_plural = 'categories'
 
@@ -36,11 +38,12 @@ class Categories(models.Model):
 
 
 class Products(models.Model):
-    store = models.ForeignKey(Store,on_delete=models.CASCADE)
+    creator = models.ForeignKey(accounts.models.CustomUser, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/')
+    image = models.URLField()
     name = models.CharField(max_length=50)
     count = models.PositiveIntegerField(default=0)
+    store = models.ManyToManyField(Store)
     buy_price = models.DecimalField(max_digits=50, decimal_places=2)
     sell_price = models.DecimalField(max_digits=50, decimal_places=2)
     side_costs = models.DecimalField(max_digits=50, decimal_places=2)

@@ -9,10 +9,10 @@ $(document).ready(function () {
             "bInfo" : false,
             columns: [
                 {
-                    name: "image", data: 0,
-                    "render": function (data, type, row, meta) {
-                        return '<img src="/media/' + data + '" style="height:45px; width:45px"/>';
-                    }
+                   name: "image", data: 0,
+                        "render": function (data, type, row, meta) {
+                            return '<img src="' + data + '" style="height:45px; width:45px"/>';
+                        }
                 },
                 {name: "name", data: 1},
                 {name: "category", data: 2},
