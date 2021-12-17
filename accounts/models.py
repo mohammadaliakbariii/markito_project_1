@@ -43,6 +43,7 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     phone_number = PhoneNumberField(unique=True)
     full_name = models.CharField(max_length=100)
+    token = models.CharField(max_length=255,blank=True,null=True,unique=True)
     REQUIRED_FIELDS = ['full_name','phone_number']
     objects = CustomUserManager()
 

@@ -7,7 +7,7 @@ from accounts.models import CustomUser
 
 class Channel(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    code = models.CharField(max_length=15,unique=True)
+
 
 
     class Meta:
@@ -38,7 +38,7 @@ class Categories(models.Model):
 class Products(models.Model):
     store = models.ForeignKey(Store,on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/')
+    image = models.URLField()
     name = models.CharField(max_length=50)
     count = models.PositiveIntegerField(default=0)
     buy_price = models.DecimalField(max_digits=50, decimal_places=2)
