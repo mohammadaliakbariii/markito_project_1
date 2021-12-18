@@ -6,13 +6,13 @@ $(document).ready(function () {
             "aLengthMenu": [[3, 5, 10, 25, 50, 100, 150], [3, 5, 10, 25, 50, 100, 150]],
             "iDisplayLength": 3,
             sAjaxSource: "/data/",
-            "bInfo" : false,
+            "bInfo": false,
             columns: [
                 {
-                   name: "image", data: 0,
-                        "render": function (data, type, row, meta) {
-                            return '<img src="' + data + '" style="height:45px; width:45px"/>';
-                        }
+                    name: "image", data: 0,
+                    "render": function (data, type, row, meta) {
+                        return '<img src="' + data + '" style="height:45px; width:45px"/>';
+                    }
                 },
                 {name: "name", data: 1},
                 {name: "category", data: 2},
@@ -73,9 +73,9 @@ $(document).ready(function () {
                         method: method,
                         data: $this.serialize(),
                         success: function (data, textStatus, jqXHR) {
-                                table.ajax.reload()
-                                $('#editmodal').modal('hide')
-                                alert("done")
+                            table.ajax.reload()
+                            $('#editmodal').modal('hide')
+                            alert("done")
                         },
                         error: function () {
                             alert("not done")
@@ -88,7 +88,6 @@ $(document).ready(function () {
                 });
                 $("#delete").click(function (e) {
                     e.preventDefault();
-                    console.log("hello")
                     let $this = $(this);
                     console.log($this.serialize())
                     let type = $('#type').val();

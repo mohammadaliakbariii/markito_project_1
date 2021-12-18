@@ -1,6 +1,5 @@
 import os
 
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from celery.result import AsyncResult
@@ -28,7 +27,7 @@ class ProductList(LoginRequiredMixin, TemplateView):
 class ProductListView(ServerSideDatatableView):
 
     def get(self, request, *args, **kwargs):
-        queryset = Products.objects.all()
+        queryset = Products.objects.filter(creator_id=request.user.id)
         columns = ['image',
                    'name',
                    'category__name',
@@ -88,8 +87,9 @@ def update_view(request,id):
 def delete_view(request,id):
     if request.method=='POST':
         product=Products.objects.filter(id=id)
-        product.delete()
-        return HttpResponse(product)
+        if product.get(creator_id=request.user.id):
+            product.delete()
+            return HttpResponse(product)
 
 
 
@@ -98,12 +98,12 @@ class AddChannel(TemplateView):
 
 
 
-@login_required
+
 @csrf_exempt
 def get_data(request):
-        user = request.user
         if request.method=="POST":
+            user = request.user.id
             token=request.POST['token']
-            markito.tasks.get_records.delay(token)
-        return render(request,'markito/add_channel.html',context={'user':user})
+            markito.tasks.get_records.delay(token,user)
+        return render(request,'markito/add_channel.html')
 
