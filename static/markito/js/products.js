@@ -6,7 +6,7 @@ $(document).ready(function () {
             "aLengthMenu": [[3, 5, 10, 25, 50, 100, 150], [3, 5, 10, 25, 50, 100, 150]],
             "iDisplayLength": 3,
             sAjaxSource: "/data/",
-            "bInfo": false,
+            "bInfo": true,
             columns: [
                 {
                     name: "image", data: 0,
