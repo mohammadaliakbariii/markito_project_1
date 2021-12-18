@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class CustomUserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
 
-    def _create_user(self, email,phone_number,full_name=None, password=None, **extra_fields):
+    def _create_user(self, email,phone_number,full_name=None,token=None, password=None, **extra_fields):
         """Create and save a User with the given email and password."""
         if not email:
             raise ValueError('The given email must be set')
@@ -15,16 +15,17 @@ class CustomUserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.phone_number = phone_number
         user.full_name = full_name
+        user.token = token
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, email,phone_number ,full_name=None, password=None, **extra_fields):
+    def create_user(self, email,phone_number ,full_name=None,token=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email,phone_number,full_name, password, **extra_fields)
+        return self._create_user(email,phone_number,full_name,token, password, **extra_fields)
 
-    def create_superuser(self, email,phone_number,full_name=None, password=None, **extra_fields):
+    def create_superuser(self, email,phone_number,full_name=None,token=None ,password=None, **extra_fields):
         """Create and save a SuperUser with the given email and password."""
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -34,7 +35,7 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email,phone_number,full_name, password, **extra_fields)
+        return self._create_user(email,phone_number,full_name, token,password, **extra_fields)
 
 
 class CustomUser(AbstractUser):
@@ -43,6 +44,7 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     phone_number = PhoneNumberField(unique=True)
     full_name = models.CharField(max_length=100)
+    token = models.CharField(max_length=255,blank=True,null=True,unique=True)
     REQUIRED_FIELDS = ['full_name','phone_number']
     objects = CustomUserManager()
 
