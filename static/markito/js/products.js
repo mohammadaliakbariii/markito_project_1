@@ -37,6 +37,7 @@ $(document).ready(function () {
                 var data = table.row($(this).parents('tr')).data();
                 console.log(data)
                 console.log(data[8])
+                var name = data[1]
                 var id = data[8]
                 let class_name = $(this).attr('class');
                 if (class_name == 'btn btn-info') {
@@ -72,11 +73,12 @@ $(document).ready(function () {
                         method: method,
                         data: $this.serialize(),
                         success: function (data, textStatus, jqXHR) {
-                            location.reload(),
-                                console.log("done")
+                                table.ajax.reload()
+                                $('#editmodal').modal('hide')
+                                alert("done")
                         },
                         error: function () {
-                            console.log("not done")
+                            alert("not done")
                             console.log(jqXHR)
 
                         }
@@ -96,8 +98,8 @@ $(document).ready(function () {
                         method: 'POST',
                         data: $this.serialize(),
                         success: function (data, textStatus, jqXHR) {
-                            location.reload();
-                            console.log('done')
+                            table.ajax.reload()
+                            alert('done')
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(jqXHR)

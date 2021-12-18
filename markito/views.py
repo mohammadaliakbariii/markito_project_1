@@ -1,5 +1,6 @@
 import os
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from celery.result import AsyncResult
@@ -97,11 +98,12 @@ class AddChannel(TemplateView):
 
 
 
-
+@login_required
 @csrf_exempt
 def get_data(request):
+        user = request.user
         if request.method=="POST":
             token=request.POST['token']
             markito.tasks.get_records.delay(token)
-        return render(request,'markito/add_channel.html')
+        return render(request,'markito/add_channel.html',context={'user':user})
 
