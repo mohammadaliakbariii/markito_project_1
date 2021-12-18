@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'test_project.wsgi.application'
 #         'USER': 'root',
 #         'PASSWORD': 'admin.admin4379',
 #         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
+#         'PORT': '3305',
 #     }
 # }
 DATABASES = {
