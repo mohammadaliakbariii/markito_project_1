@@ -20,19 +20,20 @@ def get_records(token):
                         i['product']['image'],i['seller_id']]
         all_product.append(records_list)
     print(all_product)
-    models.Products.objects.all().delete()
+
     for i in all_product:
-        models.Products.objects.create(
-            image=i[7],
-            name=i[0],
-            category=models.Categories.objects.create(name=i[6]),
-            buy_price=i[5],
-            sell_price=i[4],
-            count=i[3],
-            side_costs=i[2],
-            is_active=i[1],
-
-
+        if models.Products.objects.filter(image=i[7],name=i[6],category__name=i[6],buy_price=i[5],sell_price=i[4],count=i[3],side_costs=i[2],is_active=i[1]) is not None:
+            if models.Categories.objects.filter(name=i[6]) is not None:
+                models.Categories.objects.create(name=i[6])
+            models.Products.objects.create(
+                image=i[7],
+                name=i[0],
+                category=models.Categories.objects.create(name=i[6]),
+                buy_price=i[5],
+                sell_price=i[4],
+                count=i[3],
+                side_costs=i[2],
+                is_active=i[1],
         )
     print(records)
     # print(AsyncResult(record))
